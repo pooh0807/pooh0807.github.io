@@ -1,0 +1,19 @@
+/*第三題*/
+#lotto{
+	background-color: black;
+	color: white;
+	text-align:center;
+}
+.hr{
+	border:1px solid black;
+}
+::selection{
+	color:white;
+	background:green;
+}
+body{
+	background-color:#F0FFF0;
+}
+p{
+	font-family:"Courier New",monospace;
+}

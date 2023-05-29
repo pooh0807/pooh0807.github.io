@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>this is a lotto game</title>
+		<link rel="stylesheet" href="mystyle.css">
+	</head>
+	<body>
+		<div>
+			<h1 id="lotto">This is a lotto game</h1>
+			<p>請在網頁上輸入3個號碼(範圍1~10)，每次開始遊戲時皆會抽出3個隨機號碼(範圍1~10)，當使用者按下開獎按鈕會比對輸入號碼及得獎號碼(不論先後順序)</p>
+			<p>頭獎(三個號碼全中)500   二獎(中兩個號碼)300   三獎(中一個號碼)100</p>
+		</div>
+		
+		<div>
+			<label>first number</label>
+			<input id="first" type="text" value=""/>
+			<label>second number</label>
+			<input id="second" type="text" value=""/>
+			<label>third number</label>
+			<input id="third" type="text" value=""/>
+			<br><br>
+			<input id="start" type="button" onclick="check()" value="開獎">
+			<input id="reset" type="button" onclick="reset1()" value="重新開始">
+			<br>
+			<hr class="hr">
+			<br>
+			結果:<p id="summary1"></ul></p><p id="summary2"></ul></p><p id="summary3"></ul></p>
+		</div>
+		
+		<script>
+			var arr=new Array(3);
+			var st=0;
+			var nd=0;
+			var rd=0;
+			var msg;
+			pick();
+
+			
+			function start1(){
+				document.getElementById("summary1").innerHTML="正確號碼為:"+st+" "+nd+" "+rd;
+				document.getElementById("summary2").innerHTML="您的號碼為:"+document.getElementById("first").value+" "+document.getElementById("second").value+" "+document.getElementById("third").value;
+				lotto();
+			}
+			//第一題-抽數字部分
+			function pick(){
+				st=Math.floor(Math.random()*10)+1;
+				nd=Math.floor(Math.random()*10)+1;
+				while(st==nd){
+					nd=Math.floor(Math.random()*10)+1;
+				}
+				rd=Math.floor(Math.random()*10)+1;
+				while(st==rd || nd==rd){
+					rd=Math.floor(Math.random()*10)+1;
+				}
+				arr=[st,nd,rd];
+			}
+			//第四題
+			function reset1(){
+				document.getElementById("summary1").innerHTML="";
+				document.getElementById("summary2").innerHTML="";
+				document.getElementById("summary3").innerHTML="";
+				document.getElementById("first").value="";
+				document.getElementById("second").value="";
+				document.getElementById("third").value="";
+				pick();
+			}
+			//第一題-核對部分
+			function lotto(){
+				var success=0;
+				for(let i=0;i<3;i++){
+					if(arr[i]==document.getElementById("first").value){
+						success+=1;
+					}else if(arr[i]==document.getElementById("second").value){
+						success+=1;
+					}else if(arr[i]==document.getElementById("third").value){
+						success+=1;
+					}
+				}
+				if(success==0){
+					msg="可惜了沒有中";
+				}else if(success==1){
+					msg="恭喜你中了三獎100元";
+				}else if(success==2){
+					msg="恭喜你中了二獎300元";
+				}else if(success==3){
+					msg="恭喜你中了大獎500元";
+				}
+				document.getElementById("summary3").innerHTML="您的中獎數為:"+success+" "+msg;	//第二題
+				
+			}
+			//第五題
+			function check(){
+				if(document.getElementById("first").value>10 || document.getElementById("first").value<1){
+					alert("無效數字，請重新輸入");
+					reset1();
+				}else if(document.getElementById("second").value>10 || document.getElementById("second").value<1){
+					alert("無效數字，請重新輸入");
+				}else if(document.getElementById("third").value>10 || document.getElementById("third").value<1){
+					alert("無效數字，請重新輸入");
+				}else{
+					start1();
+				}
+			}
+		</script>
+	</body>
+</html>
